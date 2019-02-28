@@ -1,0 +1,59 @@
+body {
+
+    margin: 10px;
+
+}
+div.container-fluid{
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: aqua;
+    width: available;
+    height: available;
+    font-weight: bold;
+    float: left;
+    overflow: auto;
+}
+/*.select-doctor .select-patient{*/
+    /*font-weight: normal;*/
+    /*color: green;*/
+/*}*/
+input[type=text], input[type=date], select {
+
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+
+        /*width: 100%;*/
+    /*padding: 12px 20px;*/
+    /*margin: 8px 0;*/
+    /*box-sizing: border-box;*/
+    /*border: none;*/
+    /*background-color: #3CBC8D;*/
+    /*color: white;*/
+
+
+
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.message{
+color: green;
+}

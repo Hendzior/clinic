@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <form th:object="${visit}" method="post" th:action="@{/visit}">
+        <div>
+            <h1>Add new visit: </h1>
+            <p>Choose date of visit</p>
+            <input type="date" th:value="*{visitDate}" th:field="*{visitDate}">
+        </div>
+
+        <p><b>Enter description of visit:</b></p>
+        <input type="text" th:field="*{description}">
+
+        <p>Choose patient: </p>
+        <!--<div class="select-patient">-->
+            <!--<select th:object="${patient}" id="dropPatient">-->
+                <!--<option value="0">Select Patient:</option>-->
+                <!--<option th:each="patient : ${patients}" th:object="${patient}" th:text="${patient.surname}"></option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <div class="select-patienta">
+        <select name="patientId" id="dropPatienta">
+            <option value="0">Select Patient:</option>
+            <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.surname}"></option>
+        </select>
+    </div>
+
+        <div class="select-doctor">
+            <p>Choose doctor:</p>
+            <select name="doctorId" id="dropDoctor">
+
+                <option value="0">Select Doctor:</option>
+                <option th:each="doctor : ${doctors}" th:value="${doctor.id}" th:text="${doctor.surname}"></option>
+            </select>
+        </div>
+
+        <input type="submit" value="Add">
+
+
+        </form>
+
+    </div>
+
+</body>
+</html>
