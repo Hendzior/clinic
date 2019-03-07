@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+<div class="form-group">
+
+    <a th:href="@{'/visit/'}" class="btn btn-primary">Show visit</a>
+    <a th:href="@{'/visit/add'}" class="btn btn-success">Add visit</a>
+
+    <a th:href="@{'/patient/'}" class="btn btn-primary">Show patients</a>
+    <a th:href="@{'/patient/add'}" class="btn btn-success">Add patient</a>
+
+    <a th:href="@{'/doctor/'}" class="btn btn-primary">Show doctors</a>
+    <a th:href="@{'/doctor/add'}" class="btn btn-success">Add doctor</a>
+
+</div>
+</body>
+</html>
