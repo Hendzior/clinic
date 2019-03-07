@@ -5,25 +5,85 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
-    <div class="container-fluid">
-        <div class="message">
-         <p th:if="${message}" th:text="${message}"></p>
-        </div>
+<body>
+<div class="container-fluid">
 
-    <h3 th:if="${patient}" th:text="${patient.name} +' ' +${patient.surname}"></h3>
-    <h3 th:if="${doctor}" th:text="${doctor.name} +' ' +${doctor.surname}"></h3>
-
-    <ul>
-        <li th:if="${doctors}" th:each="doctor : ${doctors}" th:text="${doctor.name} +' ' +${doctor.surname}"></li>
-        <li th:if="${patients}" th:each="patient : ${patients}" th:text="${patient.name} +' ' +${patient.surname}"></li>
-    </ul>
+    <div class="message" th:if="${message}">
+        <h3 th:text="${message}"></h3>
     </div>
+
+    <div class="doctor" th:if="${doctor}">
+        <h3 th:if="${doctor}" th:text="${doctor.name} +' ' +${doctor.surname}"></h3>
+        <a th:href="@{'/doctor/'}" class="btn btn-warning">Show all doctors</a>
+    </div>
+    <div class="patient" th:if="${patient}">
+        <h3 th:text="${patient.name} +' ' +${patient.surname}"></h3>
+        <a th:href="@{'/patient/'}" class="btn btn-warning">Show all patients</a>
+    </div>
+
+    <div th:if="${doctors}">
+        <h2>Doctors list: </h2>
+        <table class="table table-bordered">
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Phone number</th>
+            </tr>
+            <tbody th:each="doctor : ${doctors}">
+            <td th:text="${doctor.id}"></td>
+            <td th:text="${doctor.name}"></td>
+            <td th:text="${doctor.surname}"></td>
+            <td th:text="${doctor.email}"></td>
+            <td th:text="${doctor.phoneNumber}"></td>
+            <td><a th:href="@{'/doctor/' + ${doctor.getId()} + '/edit'}" class="btn btn-primary">Edit</a></td>
+            <td><a th:href="@{'/doctor/' + ${doctor.getId()} + '/delete'}" onclick="return confirm('Are you sure?')"
+                   class="btn btn-warning">Delete</a></td>
+            </th>
+            </tbody>
+        </table>
+        <a th:href="@{'/doctor/add'}" class="btn btn-primary">Add doctor</a>
+    </div>
+
+    <div th:if="${patients}">
+        <h2>Patients list: </h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Phone number</th>
+            </tr>
+            <tbody th:each="patient : ${patients}">
+            <td th:text="${patient.id}"></td>
+            <td th:text="${patient.name}"></td>
+            <td th:text="${patient.surname}"></td>
+            <td th:text="${patient.email}"></td>
+            <td th:text="${patient.phoneNumber}"></td>
+            <td><a th:href="@{'/patient/' + ${patient.getId()} + '/edit'}" class="btn btn-primary">Edit</a></td>
+            <td><a th:href="@{'/patient/' + ${patient.getId()} + '/delete'}" onclick="return confirm('Are you sure?')"
+                   class="btn btn-warning">Delete</a></td>
+            </tbody>
+        </table>
+        <div>
+            <a th:href="@{'/patient/add'}" class="btn btn-primary">Add patient</a>
+
+            <form action="/patient/surname" method="get">
+                <label>Enter patients surname</label>
+                <input type="text" name="surname">
+                <input type="submit" value="Find" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

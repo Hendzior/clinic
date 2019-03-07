@@ -1,15 +1,14 @@
 package com.marcin.clinic.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.print.Doc;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+@AllArgsConstructor
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -19,16 +18,16 @@ public @Data class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull
-    @OneToOne
+    @ManyToOne
     private Patient patient;
-    @NonNull
-    @OneToOne
+    @ManyToOne
     private Doctor doctor;
+    @Future
     @NonNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate visitDate;
     @NonNull
+    @Size(min = 3)
     private String description;
 
 

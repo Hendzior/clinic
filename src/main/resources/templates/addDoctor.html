@@ -3,32 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Doctor</title>
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-
-    <div class="container-fluid">
-
-        <form th:action="@{/doctor}" method="post" th:object="${doctor}">
-
-            <h2>Add new doctor: </h2>
-            <label>Enter doctors name: </label>
-            <input type="text" th:field="*{name}">
-
-            <label>Enter doctors surname: </label>
-            <input type="text" th:field="*{surname}">
-
-            <input type="submit" value="Add!">
-
-        </form>
-    </div>
 </head>
+<body>
+<div class="container-fluid">
+    <div class="message" th:if="${message}">
+        <h2 th:text="${message}"/>
+    </div>
+    <form th:action="@{/doctor}" method="post" th:object="${doctor}">
+        <input type="hidden" th:field="${doctor.id}">
+        <h2>Add new doctor: </h2>
+        <label>Enter doctors name: </label>
+        <input type="text" th:field="*{name}">
+        <p th:if="${#fields.hasErrors('name')}" th:error="*{name}">Doctor name must be from 2 to 30 char!</p>
+        <label>Enter doctors surname: </label>
+        <input type="text" th:field="*{surname}">
+        <p th:if="${#fields.hasErrors('surname')}" th:error="*{surname}">Doctor surname must be from 2 to 30 char!</p>
+        <label>Enter doctors email: </label>
+        <input type="text" th:field="*{email}">
+        <p th:if="${#fields.hasErrors('email')}" th:error="*{email}">Must be a valid email address</p>
+        <label>Enter doctors phone number</label>
+        <input type="text" th:field="*{phoneNumber}">
+        <p th:if="${#fields.hasErrors('phoneNumber')}" th:error="*{phoneNumber}">Must be valid phone number xxx xxx
+            xxx</p>
+        <input type="submit" value="Add!">
+    </form>
+</div>
+</body>
 </html>

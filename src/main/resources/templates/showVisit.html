@@ -6,7 +6,6 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -15,9 +14,35 @@
 </head>
 <body>
 <div class="container-fluid">
-<h1>All visits: </h1>
-
-<p th:each="visit : ${visits}" th:text="${visit}"/>
+    <div class="message" th:if="${message}">
+        <h3 th:text="${message}"></h3>
+    </div>
+    <table class="table table-bordered" id="clinic-table" th:if="${visits}">
+        <h2>Visit list:</h2>
+        <tr>
+            <th>ID</th>
+            <th>Patient surname</th>
+            <th>Doctor surname</th>
+            <th>Date</th>
+            <th>Description</th>
+        </tr>
+        <tbody th:each="visit : ${visits}">
+        <td th:text="${visit.id}"></td>
+        <td th:text="${visit.patient.surname}"></td>
+        <td th:text="${visit.doctor.surname}"></td>
+        <td th:text="${visit.visitDate}"></td>
+        <td th:text="${visit.description}"></td>
+        <td><a th:href="@{'/visit/' + ${visit.getId()} + '/edit'}" class="btn btn-primary">Edit</a></td>
+        <td><a th:href="@{'/visit/' + ${visit.getId()} + '/delete'}" onclick="return confirm('Are you sure?')"
+               class="btn btn-warning">Delete</a></td>
+        </tbody>
+    </table>
+    <a th:href="@{'/visit/add'}" class="btn btn-primary">Add visit</a>
+    <form action="/visit/surname" method="get">
+        <label>Enter patients surname</label>
+        <input type="text" name="surname">
+        <input type="submit" value="Find" class="btn btn-primary">
+    </form>
 </div>
 </body>
 </html>

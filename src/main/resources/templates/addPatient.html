@@ -12,23 +12,31 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-
-    <div class="container-fluid">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="message" th:if="${message}">
+        <h2 th:text="${message}"/>
+    </div>
     <form th:object="${patient}" method="post" th:action="@{/patient}">
-
+        <input type="hidden" th:field="${patient.id}">
         <h2>Add new patient: </h2>
         <label>Enter patients name: </label>
         <input type="text" th:field="*{name}">
-
+        <p th:if="${#fields.hasErrors('name')}" th:error="*{name}">Patient name must be from 2 to 30 characters!</p>
         <label>Enter patients surname: </label>
         <input type="text" th:field="*{surname}">
+        <p th:if="${#fields.hasErrors('surname')}" th:error="*{surname}">Patient surname must be from 2 to 30
+            characters!</p>
+        <label>Enter patients email: </label>
+        <input type="text" th:field="*{email}">
+        <p th:if="${#fields.hasErrors('email')}" th:error="*{email}">Must be valid email address!</p>
+        <label>Enter patients phone number: </label>
+        <input type="text" th:field="*{phoneNumber}">
+        <p th:if="${#fields.hasErrors('phoneNumber')}" th:error="*{phoneNumber}">Must be valid phone number xxx xxx
+            xxx</p>
         <input type="submit" value="add">
-
     </form>
-    </div>
-
-</head>
-<body>
-
+</div>
 </body>
 </html>
