@@ -56,7 +56,7 @@ public class DatabaseLoader {
             visitRepository.save(new Visit(1L, patientRepository.findById(1L).get(),
                     doctorRepository.findById(1L).get(), LocalDate.of(2020, 11, 12), "visit1"));
             visitRepository.save(new Visit(2L, patientRepository.findById(2L).get(),
-                    doctorRepository.findById(2L).get(), LocalDate.of(2019, 6, 15), "visit2"));
+                    doctorRepository.findById(2L).get(), LocalDate.of(2019, 6, 28), "visit2"));
             visitRepository.save(new Visit(3L, patientRepository.findById(3L).get(),
                     doctorRepository.findById(1L).get(), LocalDate.of(2019, 9, 17), "visit3"));
             visitRepository.save(new Visit(4L, patientRepository.findById(1L).get(),
@@ -66,8 +66,10 @@ public class DatabaseLoader {
             for (Visit visit : visitRepository.findAll()) {
 
                 log.debug("find visit by patient surname : {}", visitRepository.findByPatientSurname("Surname1"));
-            }
 
+            }
+            log.info("find visit by date:(2019.06.28 {}",visitRepository.findByDate(LocalDate.of(2019, 6, 28)));
+            log.info("find visit by date:(2019.11.12 {}",visitRepository.findByDate(LocalDate.of(2020, 11, 12)));
         };
 
     }

@@ -25,11 +25,9 @@ public @Data class Visit {
     @Future
     @NonNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate visitDate;
+    private LocalDate date;
     @NonNull
     @Size(min = 3)
     private String description;
-
-
 
 }

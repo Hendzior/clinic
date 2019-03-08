@@ -30,7 +30,7 @@
         <td th:text="${visit.id}"></td>
         <td th:text="${visit.patient.surname}"></td>
         <td th:text="${visit.doctor.surname}"></td>
-        <td th:text="${visit.visitDate}"></td>
+        <td th:text="${visit.date}"></td>
         <td th:text="${visit.description}"></td>
         <td><a th:href="@{'/visit/' + ${visit.getId()} + '/edit'}" class="btn btn-primary">Edit</a></td>
         <td><a th:href="@{'/visit/' + ${visit.getId()} + '/delete'}" onclick="return confirm('Are you sure?')"
@@ -41,6 +41,11 @@
     <form action="/visit/surname" method="get">
         <label>Enter patients surname</label>
         <input type="text" name="surname">
+        <input type="submit" value="Find" class="btn btn-primary">
+    </form>
+    <form action="/visit/date" method="get">
+        <label>Enter visit date</label>
+        <input type="date"  name="visitDate">
         <input type="submit" value="Find" class="btn btn-primary">
     </form>
 </div>

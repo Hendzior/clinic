@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Slf4j
@@ -83,4 +85,12 @@ public class VisitController {
         return "showVisit";
     }
 
+    @GetMapping("/date")
+    public String getVisitByDate(@RequestParam String visitDate, ModelMap modelMap) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        modelMap.addAttribute("visits", visitRepository.findByDate(LocalDate.parse(visitDate)));
+        modelMap.addAttribute("message", "Visits for date : " + visitDate);
+
+        return "showVisit";
+    }
 }
