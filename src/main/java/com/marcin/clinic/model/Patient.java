@@ -13,8 +13,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public @Data
-class Patient {
+@Data
+public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

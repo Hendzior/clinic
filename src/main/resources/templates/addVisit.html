@@ -16,15 +16,18 @@
 <div class="container-fluid">
 
     <form th:object="${visit}" method="post" th:action="@{/visit}">
+        <input type="hidden" th:field="${visit.id}">
         <div>
             <h1>Add new visit: </h1>
             <p>Choose date of visit</p>
             <input type="date" th:value="*{date}" th:field="*{date}">
-            <p th:if="${message}" th:text="${message}"></p>
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('date')}" th:eror="*{date}">Date must be in future</div>
+
+
         </div>
         <p><b>Enter description of visit:</b></p>
-        <input type="text" th:field="*{description}" required>
-        <p th:if="${#fields.hasErrors('description')}" th:eror="*{description}">Desc wrong!</p>
+        <input type="text" th:field="*{description}">
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('description')}" th:eror="*{description}">Enter visit description</div>
 
         <p>Choose patient: </p>
         <div class="select-patient">

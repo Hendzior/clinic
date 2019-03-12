@@ -23,18 +23,18 @@
         <h2>Add new patient: </h2>
         <label>Enter patients name: </label>
         <input type="text" th:field="*{name}">
-        <p th:if="${#fields.hasErrors('name')}" th:error="*{name}">Patient name must be from 2 to 30 characters!</p>
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:error="*{name}">Patient name must be from 2 to 30 characters!</div>
         <label>Enter patients surname: </label>
         <input type="text" th:field="*{surname}">
-        <p th:if="${#fields.hasErrors('surname')}" th:error="*{surname}">Patient surname must be from 2 to 30
-            characters!</p>
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('surname')}" th:error="*{surname}">Patient surname must be from 2 to 30
+            characters!</div>
         <label>Enter patients email: </label>
         <input type="text" th:field="*{email}">
-        <p th:if="${#fields.hasErrors('email')}" th:error="*{email}">Must be valid email address!</p>
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:error="*{email}">Must be valid email address!</div>
         <label>Enter patients phone number: </label>
         <input type="text" th:field="*{phoneNumber}">
-        <p th:if="${#fields.hasErrors('phoneNumber')}" th:error="*{phoneNumber}">Must be valid phone number xxx xxx
-            xxx</p>
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('phoneNumber')}" th:error="*{phoneNumber}">Must be valid phone number xxx xxx
+            xxx</div>
         <input type="submit" value="add">
     </form>
 </div>

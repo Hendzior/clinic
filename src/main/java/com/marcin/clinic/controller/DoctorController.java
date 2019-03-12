@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/doctor")
@@ -46,10 +47,15 @@ public class DoctorController {
 
     @GetMapping("/{id}/edit")
     public String editDoctor(@PathVariable Long id, ModelMap modelMap) {
-
-        modelMap.addAttribute("doctor",
-                doctorRepository.findById(id).get());
-        return "addDoctor";
+        Optional<Doctor> doctorOptional = doctorRepository.findById(id);
+        if (doctorOptional.isPresent()) {
+            modelMap.addAttribute("doctor",
+                    doctorOptional.get());
+            return "addDoctor";
+        } else {
+            modelMap.addAttribute("message", "Doctor id:" + id + " not found!");
+            return "show";
+        }
     }
 
     @PostMapping("/edit")
@@ -61,8 +67,13 @@ public class DoctorController {
 
     @GetMapping("/{id}/delete")
     public String deleteDoctor(@PathVariable Long id, ModelMap modelMap) {
-        doctorRepository.delete(doctorRepository.findById(id).get());
-        modelMap.addAttribute("message", "Doctor deleted!");
+        Optional<Doctor> doctorOptional = doctorRepository.findById(id);
+        if (doctorOptional.isPresent()) {
+            doctorRepository.delete(doctorOptional.get());
+            modelMap.addAttribute("message", "Doctor" + doctorOptional.get().getName() + " " + doctorOptional.get().getSurname() + " deleted!");
+        } else {
+            modelMap.addAttribute("message", "Doctor id:" + id + " not found!");
+        }
         return "show";
     }
 }

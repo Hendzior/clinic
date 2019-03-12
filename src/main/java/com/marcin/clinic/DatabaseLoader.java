@@ -61,10 +61,11 @@ public class DatabaseLoader {
                     doctorRepository.findById(1L).get(), LocalDate.of(2019, 9, 17), "visit3"));
             visitRepository.save(new Visit(4L, patientRepository.findById(1L).get(),
                     doctorRepository.findById(2L).get(), LocalDate.of(2019, 6, 28), "visit4"));
+       //     visitRepository.save(new Visit(5L, LocalDate.of(2019, 6, 28), "visit4"));
 
-            log.debug("visit findAll() : ");
+            log.info("visit findAll() : ");
             for (Visit visit : visitRepository.findAll()) {
-
+log.info("visit: {}", visit);
                 log.debug("find visit by patient surname : {}", visitRepository.findByPatientSurname("Surname1"));
 
             }

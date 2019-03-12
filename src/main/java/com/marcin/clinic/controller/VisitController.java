@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Slf4j
@@ -33,7 +32,9 @@ public class VisitController {
 
     @GetMapping("/add")
     public String addVisit(ModelMap modelMap) {
-        modelMap.addAttribute("visit", new Visit());
+        if (!modelMap.containsAttribute("visit")) {
+            modelMap.addAttribute("visit", new Visit());
+        }
         modelMap.addAttribute("patients", patientRepository.findAll());
         modelMap.addAttribute("doctors", doctorRepository.findAll());
         return "addVisit";
@@ -45,6 +46,7 @@ public class VisitController {
                             RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors() || !patientRepository.findById(patientId).isPresent() || !doctorRepository.findById(doctorId).isPresent()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.visit", bindingResult);
             redirectAttributes.addFlashAttribute("visit", visit);
             return "redirect:/visit/add";
         }
@@ -59,19 +61,31 @@ public class VisitController {
 
     @GetMapping
     public String showAllVisits(ModelMap modelMap) {
-        log.info("visits: {}", visitRepository.findAll());
         modelMap.addAttribute("visits", visitRepository.findAll());
         return "showVisit";
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteVisit(@PathVariable Long id, ModelMap modelMap) {
+    public String deleteVisit(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Optional<Visit> visitOptional = visitRepository.findById(id);
         if (visitOptional.isPresent()) {
             visitRepository.delete(visitOptional.get());
+            redirectAttributes.addFlashAttribute("message", "Visit id:" + id + " deleted!");
             return "redirect:/visit";
         } else {
-            modelMap.addAttribute("message", "Visit id = " + id + "not found");
+            redirectAttributes.addFlashAttribute("message", "Visit id:" + id + " not found!");
+        }
+        return "redirect:/visit";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String updateVisit(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Optional<Visit> visitOptional = visitRepository.findById(id);
+        if (visitOptional.isPresent()) {
+            redirectAttributes.addFlashAttribute("visit", visitOptional.get());
+            return "redirect:/visit/add";
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Visit id:" + id + " not found!");
         }
         return "redirect:/visit";
     }
@@ -87,7 +101,7 @@ public class VisitController {
 
     @GetMapping("/date")
     public String getVisitByDate(@RequestParam String visitDate, ModelMap modelMap) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         modelMap.addAttribute("visits", visitRepository.findByDate(LocalDate.parse(visitDate)));
         modelMap.addAttribute("message", "Visits for date : " + visitDate);
 
